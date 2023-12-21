@@ -2,6 +2,7 @@
 // Created by Olcay Taner YILDIZ on 8.05.2023.
 //
 
+
 #include "Graph.h"
 #include "../../Array/DisjointSet.h"
 #include "../Queue.h"
@@ -60,7 +61,7 @@ namespace list {
         }
     }
 
-    void Graph::breadthFirstSearch(bool *visited, int startNode) {
+    void Graph::breadthFirstSearch(bool *visited, int startNode, int endNode) {
         Edge* edge;
         int fromNode, toNode;
         Queue queue = Queue();
@@ -77,6 +78,11 @@ namespace list {
                 edge = edge->getNext();
             }
         }
+    }
+
+    std::vector<EdgeList> Graph::getPaths(int from, int to) {
+        bool visited = new bool[vertexCount];
+        breadthFirstSearch(visited, from);
     }
 
     Path *Graph::bellmanFord(int source) {

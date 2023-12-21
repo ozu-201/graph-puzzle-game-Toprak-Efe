@@ -5,7 +5,6 @@
 #ifndef DATASTRUCTURES_CPP_ABSTRACTGRAPH_H
 #define DATASTRUCTURES_CPP_ABSTRACTGRAPH_H
 
-
 #include "Path.h"
 #include "../List/Graph/Edge.h"
 
