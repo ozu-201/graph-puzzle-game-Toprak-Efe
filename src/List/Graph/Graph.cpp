@@ -151,9 +151,9 @@ namespace list {
             pen = paths[pen].getPrevious();
         }
 
-        pen = pathToGoal.getPrevious();
+        pen = to;
         int *vertices = new int[length];
-        for (int i = length; i > 0; i--) {
+        for (int i = length; i > -1; i--) {
             vertices[i] = pen;
             pen = paths[pen].getPrevious();
         }
@@ -161,6 +161,7 @@ namespace list {
         for (int i = 0; i < length; i++) {
             std::cout << dict[vertices[i]] << "->";
         }
+        std::cout << dict[to];
 
     }
 
