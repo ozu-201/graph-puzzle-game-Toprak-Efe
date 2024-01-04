@@ -1,2 +1,4 @@
-C:/Users/ea033805/Desktop/Project3/graph-puzzle-game-Toprak-Efe/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/ea033805/Desktop/Project3/graph-puzzle-game-Toprak-Efe/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/ea033805/CLionProjects/graph-puzzle-game-Toprak-Efe/cmake-build-debug/CMakeFiles/graph-puzzle-game-Toprak-Efe.dir
+C:/Users/ea033805/CLionProjects/graph-puzzle-game-Toprak-Efe/cmake-build-debug/CMakeFiles/main.dir
+C:/Users/ea033805/CLionProjects/graph-puzzle-game-Toprak-Efe/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/ea033805/CLionProjects/graph-puzzle-game-Toprak-Efe/cmake-build-debug/CMakeFiles/rebuild_cache.dir

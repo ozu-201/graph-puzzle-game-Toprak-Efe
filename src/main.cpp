@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
 
     /* Read lines and add words to the vector. */
     std::ifstream dict_file;
-    dict_file.open("C:\\Users\\ea033805\\Desktop\\Project3\\graph-puzzle-game-Toprak-Efe\\src\\english-dictionary.txt");
+    dict_file.open("C:\\Users\\ea033805\\CLionProjects\\graph-puzzle-game-Toprak-Efe\\dictionary.txt");
     if (dict_file.is_open()) {
         std::string word;
         while (std::getline(dict_file, word)) {
@@ -54,36 +54,40 @@ int main(int argc, char** argv) {
     list::Graph fiveGraph(dictionary5.size());
 
     /* Correspond edges between elements in dictionary and store them in the corresponding graph. */
-    for (int i = 0; i < dictionary3.size() - 1; i++) {
-        for (int j = i + 1; j < dictionary3.size(); j++) {
+    for (int i = 0; i < dict3_len; i++) {
+        for (int j = i + 1; j < dict3_len; j++) {
             if (get_difference(dictionary3[i], dictionary3[j]) == 1) {
                 threeGraph.addEdge(i, j);
+                threeGraph.addEdge(j, i);
             }
         }
     }
-    for (int i = 0; i < dictionary4.size() - 1; i++) {
-        for (int j = i + 1; j < dictionary4.size(); j++) {
+    for (int i = 0; i < dict4_len; i++) {
+        for (int j = i + 1; j < dict4_len; j++) {
             if (get_difference(dictionary4[i], dictionary4[j]) == 1) {
                 fourGraph.addEdge(i, j);
+                fourGraph.addEdge(j, i);
             }
         }
     }
-    for (int i = 0; i < dictionary5.size() - 1; i++) {
-        for (int j = i + 1; j < dictionary5.size(); j++) {
+    for (int i = 0; i < dict5_len; i++) {
+        for (int j = i + 1; j < dict5_len; j++) {
             if (get_difference(dictionary5[i], dictionary5[j]) == 1) {
                 fiveGraph.addEdge(i, j);
+                fiveGraph.addEdge(j, i);
             }
         }
     }
 
     // Generate two indices for dictionary 4.
     srand(123);
-    int start = rand() % dictionary4.size();
-    int goal = rand() % dictionary4.size();
+    int start = 1; //rand() % dict3_len;
+    int goal = 10; //rand() % dict3_len;
 
-    std::cout << "Starting Word: " << dictionary4[start] << std::endl;
-    std::cout << "Ending Word: " << dictionary4[goal] << std::endl;
-    fourGraph.getPaths(start, goal);
+    std::cout << "Starting Word: " << dictionary3[start] << std::endl;
+    std::cout << "Ending Word: " << dictionary3[goal] << std::endl;
+    threeGraph.getPathBreadth(dictionary3, start, goal);
+    threeGraph.getPathDijkstra(dictionary3, start, goal);
 
     return 0;
 }

@@ -61,7 +61,7 @@ namespace list {
         }
     }
 
-    void Graph::breadthFirstSearch(bool *visited, int startNode, int endNode) {
+    void Graph::breadthFirstSearch(bool *visited, int startNode) {
         Edge* edge;
         int fromNode, toNode;
         Queue queue = Queue();
@@ -80,9 +80,88 @@ namespace list {
         }
     }
 
-    std::vector<EdgeList> Graph::getPaths(int from, int to) {
-        bool visited = new bool[vertexCount];
-        breadthFirstSearch(visited, from);
+    int *Graph::breadthFirstSearch(bool *visited, int startNode, int endNode) {
+        int *costForPath = new int[vertexCount];
+        int *previousVertex = new int[vertexCount];
+        memset(costForPath, 0, sizeof(int)*vertexCount);
+        memset(previousVertex, 0, sizeof(int)*vertexCount);
+
+        int shortestPathLength = 0;
+        bool found = false;
+
+        int fromNode, toNode;
+        Edge* edge;
+        Queue queue = Queue();
+        queue.enqueue(new Node(startNode));
+        /* Iterate through the queue until it is empty. */
+        while (!queue.isEmpty() && !found){
+            fromNode = queue.dequeue()->getData();
+            /* For each node, calculate their corresponding cost and write their . */
+            edge = edges[fromNode].getHead();
+            while (edge != nullptr) {
+                toNode = edge->getTo();
+                if (!visited[toNode]){
+                    visited[toNode] = true;
+                    costForPath[toNode] = costForPath[fromNode] + 1;
+                    previousVertex[toNode] = fromNode;
+                    if (toNode == endNode) {
+                        shortestPathLength = costForPath[toNode];
+                        found = true;
+                        break;
+                    }
+                    queue.enqueue(new Node(toNode));
+                }
+                edge = edge->getNext();
+            }
+        }
+
+        int *path = new int[shortestPathLength+2];
+        path[0] = shortestPathLength+2;
+        path[shortestPathLength+1] = endNode;
+        path[1] = startNode;
+
+        fromNode = previousVertex[endNode];
+        int index = shortestPathLength;
+        while (fromNode != startNode) {
+            path[shortestPathLength] = fromNode;
+            fromNode = previousVertex[fromNode];
+            shortestPathLength--;
+        }
+        return path;
+    }
+
+    void Graph::getPathBreadth(std::vector<std::string> &dict, int from, int to) {
+        bool *visited = new bool[vertexCount];
+        int *path = breadthFirstSearch(visited, from, to);
+        int length = path[0];
+        for (int i = 0; i < length-2; i++) {
+            std::cout << dict[path[i+1]] << "->";
+        }
+        std::cout << dict[path[length-1]] << '\n';
+    }
+
+    void Graph::getPathDijkstra(std::vector<std::string> &dict, int from, int to) {
+        Path *paths = dijkstra(from);
+        Path pathToGoal = paths[to];
+
+        int pen = pathToGoal.getPrevious();
+        int length = 1;
+        while (pen != from) {
+            length++;
+            pen = paths[pen].getPrevious();
+        }
+
+        pen = pathToGoal.getPrevious();
+        int *vertices = new int[length];
+        for (int i = length; i > 0; i--) {
+            vertices[i] = pen;
+            pen = paths[pen].getPrevious();
+        }
+
+        for (int i = 0; i < length; i++) {
+            std::cout << dict[vertices[i]] << "->";
+        }
+
     }
 
     Path *Graph::bellmanFord(int source) {
@@ -128,6 +207,7 @@ namespace list {
                 edge = edge->getNext();
             }
         }
+
         return shortestPaths;
     }
 

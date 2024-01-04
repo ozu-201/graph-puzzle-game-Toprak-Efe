@@ -13,6 +13,10 @@ int Path::getDistance() const{
     return distance;
 }
 
+int Path::getPrevious() const {
+    return this->previous;
+}
+
 void Path::setDistance(int _distance) {
     this->distance = _distance;
 }
